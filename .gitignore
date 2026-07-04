@@ -49,6 +49,10 @@ coverage/
 # Cache directories
 .turbo/
 **/.turbo/
+.vercel/
+**/.vercel/
+.wrangler/
+**/.wrangler/
 .cache/
 **/.cache/
 .parcel-cache/
