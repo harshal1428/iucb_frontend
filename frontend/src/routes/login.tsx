@@ -9,7 +9,14 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import { Eye, EyeOff, ShieldAlert, Lock, Mail } from "lucide-react";
 
 const loginSchema = z.object({
@@ -54,14 +61,21 @@ function LoginComponent() {
       });
 
       const { accessToken, admin } = response.data.data;
-      
+
       // Store in auth context
       login(accessToken, admin);
 
       // Redirect to main page
       navigate({ to: "/" });
-    } catch (error: any) {
-      const msg = error.response?.data?.message || "Invalid credentials. Please try again.";
+    } catch (error: unknown) {
+      const msg =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message ===
+          "string"
+          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          : "Invalid credentials. Please try again.";
       setErrorMessage(msg);
     } finally {
       setIsLoading(false);
@@ -85,7 +99,7 @@ function LoginComponent() {
             Sign in to access your administrative dashboard
           </CardDescription>
         </CardHeader>
-        
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-4">
             {errorMessage && (
@@ -96,7 +110,9 @@ function LoginComponent() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-700 font-medium">Email Address</Label>
+              <Label htmlFor="email" className="text-slate-700 font-medium">
+                Email Address
+              </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                 <Input
@@ -115,7 +131,9 @@ function LoginComponent() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-slate-700 font-medium">Password</Label>
+                <Label htmlFor="password" className="text-slate-700 font-medium">
+                  Password
+                </Label>
                 <a
                   href="/forgot-password"
                   className="text-xs font-semibold text-[#0F2942] hover:text-[#D4AF37] transition-colors"

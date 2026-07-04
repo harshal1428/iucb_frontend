@@ -17,13 +17,7 @@ export const Route = createFileRoute("/documentation")({
   component: Documentation,
 });
 
-const categories = [
-  "All Documents",
-  "Governance",
-  "Standards",
-  "Forms",
-  "Public Reports",
-];
+const categories = ["All Documents", "Governance", "Standards", "Forms", "Public Reports"];
 
 const docs = [
   {
@@ -69,22 +63,24 @@ function Documentation() {
 
   const filtered = docs.filter((d) => {
     const matchesCat = cat === "All Documents" || d.cat === cat;
-    const matchesQ = !q || d.title.toLowerCase().includes(q.toLowerCase()) || d.desc.toLowerCase().includes(q.toLowerCase());
+    const matchesQ =
+      !q ||
+      d.title.toLowerCase().includes(q.toLowerCase()) ||
+      d.desc.toLowerCase().includes(q.toLowerCase());
     return matchesCat && matchesQ;
   });
 
   return (
     <>
-     <PageHero
-  eyebrow="Resources & Documentation"
-  title={
-    <>
-      Resource Center &
-      <span className="text-gold"> Documentation</span>
-    </>
-  }
-  description="Access official IUCB policies, governance frameworks, accreditation standards, public reports, application forms, and guidance documents designed to support Certification Bodies, Individual Auditors, and Training Providers."
-/>
+      <PageHero
+        eyebrow="Resources & Documentation"
+        title={
+          <>
+            Resource Center &<span className="text-gold"> Documentation</span>
+          </>
+        }
+        description="Access official IUCB policies, governance frameworks, accreditation standards, public reports, application forms, and guidance documents designed to support Certification Bodies, Individual Auditors, and Training Providers."
+      />
 
       <section className="py-12 bg-white border-b border-border">
         <div className="container-x">
@@ -94,7 +90,10 @@ function Documentation() {
               { icon: Layers, v: 6, l: "Document Categories" },
               { icon: BookOpen, v: 4, l: "Languages Supported" },
             ].map((s) => (
-              <div key={s.l} className="rounded-xl border border-border bg-card p-6 flex items-center gap-4 hover:border-secondary hover:shadow-md transition">
+              <div
+                key={s.l}
+                className="rounded-xl border border-border bg-card p-6 flex items-center gap-4 hover:border-secondary hover:shadow-md transition"
+              >
                 <div className="h-12 w-12 rounded-lg bg-light-blue text-primary grid place-items-center flex-shrink-0">
                   <s.icon className="h-6 w-6" />
                 </div>
@@ -126,7 +125,9 @@ function Documentation() {
                   key={c}
                   onClick={() => setCat(c)}
                   className={`px-3.5 py-2 rounded-md text-xs font-semibold transition ${
-                    cat === c ? "bg-primary text-primary-foreground" : "bg-white border border-border text-navy hover:border-secondary"
+                    cat === c
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-white border border-border text-navy hover:border-secondary"
                   }`}
                 >
                   {c}
@@ -142,17 +143,24 @@ function Documentation() {
               </div>
             ) : (
               filtered.map((d) => (
-                <article key={d.title} className="rounded-xl border border-border bg-white p-6 hover:border-secondary hover:shadow-lg transition group">
+                <article
+                  key={d.title}
+                  className="rounded-xl border border-border bg-white p-6 hover:border-secondary hover:shadow-lg transition group"
+                >
                   <div className="flex items-start justify-between gap-4">
                     <div className="h-12 w-12 rounded-lg bg-light-blue text-primary grid place-items-center flex-shrink-0">
                       <FileCheck2 className="h-5 w-5" />
                     </div>
-                    <span className="text-[10px] uppercase tracking-wider font-semibold text-secondary bg-light-blue/40 px-2.5 py-1 rounded">{d.cat}</span>
+                    <span className="text-[10px] uppercase tracking-wider font-semibold text-secondary bg-light-blue/40 px-2.5 py-1 rounded">
+                      {d.cat}
+                    </span>
                   </div>
                   <h3 className="mt-5 text-lg font-semibold text-navy leading-tight">{d.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{d.desc}</p>
                   <div className="mt-5 pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div className="text-xs font-mono text-muted-foreground">{d.version} · {d.size}</div>
+                    <div className="text-xs font-mono text-muted-foreground">
+                      {d.version} · {d.size}
+                    </div>
                     <button className="inline-flex items-center justify-center gap-1.5 px-4 py-2 text-xs font-semibold text-secondary bg-light-blue/40 rounded-md hover:bg-secondary hover:text-white transition">
                       <Download className="h-3.5 w-3.5" /> Download
                     </button>

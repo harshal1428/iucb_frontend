@@ -14,9 +14,12 @@ function UnauthorizedComponent() {
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-red-600 border border-red-200 mb-6">
         <ShieldAlert className="h-8 w-8" />
       </div>
-      <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">403 - Access Denied</h1>
+      <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+        403 - Access Denied
+      </h1>
       <p className="text-lg text-slate-600 max-w-md mb-8">
-        You do not possess the required administrative clearance to access this system resource. Sessions are logged.
+        You do not possess the required administrative clearance to access this system resource.
+        Sessions are logged.
       </p>
       <div className="flex flex-wrap gap-4 justify-center">
         <Button

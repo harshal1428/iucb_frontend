@@ -71,20 +71,25 @@ export function SiteHeader() {
           <Link to="/" className="flex items-center gap-3">
             <div className="relative h-14 w-14 flex-shrink-0">
               {/* Replace src below with your actual logo path */}
-              <img 
-                src="/FINAL_LOGO_DESIGN.jpeg" 
-                alt="IUCB Logo" 
+              <img
+                src="/FINAL_LOGO_DESIGN.jpeg"
+                alt="IUCB Logo"
                 className="h-full w-full object-contain"
               />
             </div>
             <div className="leading-tight">
               <div className="text-[15px] font-bold tracking-tight text-primary">IUCB</div>
-              <div className="text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">International Union of Certification Bodies</div>
+              <div className="text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
+                International Union of Certification Bodies
+              </div>
             </div>
           </Link>
 
           <div className="hidden md:flex items-center gap-3">
-            <Link to="/documentation" className="h-9 px-5 inline-flex items-center text-xs font-semibold rounded-full border border-gold/40 text-primary hover:border-gold hover:bg-gold/5 transition">
+            <Link
+              to="/documentation"
+              className="h-9 px-5 inline-flex items-center text-xs font-semibold rounded-full border border-gold/40 text-primary hover:border-gold hover:bg-gold/5 transition"
+            >
               Advisory
             </Link>
           </div>
@@ -113,7 +118,10 @@ export function SiteHeader() {
                 <Link
                   to={item.to as never}
                   className="group relative flex items-center gap-1 px-5 py-3.5 text-[15px] font-semibold text-white/90 hover:text-white transition-colors"
-                  activeProps={{ className: "flex items-center gap-1 px-5 py-3.5 text-[15px] font-semibold text-white" }}
+                  activeProps={{
+                    className:
+                      "flex items-center gap-1 px-5 py-3.5 text-[15px] font-semibold text-white",
+                  }}
                 >
                   {item.label}
                   {item.hasMenu && <ChevronDown className="h-3 w-3 opacity-80" />}
@@ -128,26 +136,30 @@ export function SiteHeader() {
                   >
                     <div className="absolute left-0 top-full w-screen">
                       <div className="bg-white border-b-4 border-gold shadow-2xl">
-                        <div className={`container-x py-10 grid gap-10 ${item.hasMenu === "programs" ? "grid-cols-1" : "grid-cols-4"}`}>
-                          {(item.hasMenu === "programs" ? programsMega : resourcesMega).map((col) => (
-                            <div key={col.title}>
-                              <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-primary mb-4 pb-2 border-b border-light-blue">
-                                {col.title}
+                        <div
+                          className={`container-x py-10 grid gap-10 ${item.hasMenu === "programs" ? "grid-cols-1" : "grid-cols-4"}`}
+                        >
+                          {(item.hasMenu === "programs" ? programsMega : resourcesMega).map(
+                            (col) => (
+                              <div key={col.title}>
+                                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-primary mb-4 pb-2 border-b border-light-blue">
+                                  {col.title}
+                                </div>
+                                <ul className="space-y-2.5">
+                                  {col.links.map((l) => (
+                                    <li key={l.label}>
+                                      <Link
+                                        to={l.to as never}
+                                        className="group inline-flex items-center text-[14px] font-medium text-navy-deep hover:text-secondary transition-all hover:translate-x-[3px]"
+                                      >
+                                        {l.label}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
-                              <ul className="space-y-2.5">
-                                {col.links.map((l) => (
-                                  <li key={l.label}>
-                                    <Link
-                                      to={l.to as never}
-                                      className="group inline-flex items-center text-[14px] font-medium text-navy-deep hover:text-secondary transition-all hover:translate-x-[3px]"
-                                    >
-                                      {l.label}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                            ),
+                          )}
                         </div>
                       </div>
                     </div>
@@ -169,7 +181,6 @@ export function SiteHeader() {
         <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </div>
 
-
       {open && (
         <div className="lg:hidden border-t border-white/10 bg-primary text-white">
           <div className="container-x py-4 flex flex-col gap-1">
@@ -184,8 +195,20 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="flex gap-2 mt-3">
-              <Link to="/verify" onClick={() => setOpen(false)} className="flex-1 text-center px-4 py-2 text-sm rounded-md border border-white/30">Verify</Link>
-              <Link to="/services" onClick={() => setOpen(false)} className="flex-1 text-center px-4 py-2 text-sm font-semibold rounded-md bg-gold text-gold-foreground">Apply</Link>
+              <Link
+                to="/verify"
+                onClick={() => setOpen(false)}
+                className="flex-1 text-center px-4 py-2 text-sm rounded-md border border-white/30"
+              >
+                Verify
+              </Link>
+              <Link
+                to="/services"
+                onClick={() => setOpen(false)}
+                className="flex-1 text-center px-4 py-2 text-sm font-semibold rounded-md bg-gold text-gold-foreground"
+              >
+                Apply
+              </Link>
             </div>
           </div>
         </div>

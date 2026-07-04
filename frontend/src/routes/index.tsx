@@ -1,17 +1,45 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  ShieldCheck, BadgeCheck, Globe2, Users, Building2, GraduationCap, Search,
-  ArrowRight, FileCheck2, Award, Lock, Scale, Eye, CheckCircle2, AlertTriangle,
-  Briefcase, Cpu, HeartPulse, Banknote, Factory, Landmark, Quote, QrCode, Upload,
-  Loader2, ChevronLeft, ChevronRight, Calendar,
+  ShieldCheck,
+  BadgeCheck,
+  Globe2,
+  Users,
+  Building2,
+  GraduationCap,
+  Search,
+  ArrowRight,
+  FileCheck2,
+  Award,
+  Lock,
+  Scale,
+  Eye,
+  CheckCircle2,
+  AlertTriangle,
+  Briefcase,
+  Cpu,
+  HeartPulse,
+  Banknote,
+  Factory,
+  Landmark,
+  Quote,
+  QrCode,
+  Upload,
+  Loader2,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "IUCB — The Global Authority for Accreditation & Certification" },
-      { name: "description", content: "IUCB accredits Certification Bodies, Auditors and Training Providers against ISO, Cybersecurity & Privacy standards — recognized in 85+ countries." },
+      {
+        name: "description",
+        content:
+          "IUCB accredits Certification Bodies, Auditors and Training Providers against ISO, Cybersecurity & Privacy standards — recognized in 85+ countries.",
+      },
     ],
   }),
   component: Home,
@@ -29,21 +57,21 @@ const slides = [
     stat: { k: "+95%", v: "Audit Pass Rate" },
   },
   {
-  eyebrow: "Certification Bodies",
-  title: "Achieve International Accreditation",
-  accent: "Competence. Consistency. Impartiality.",
-  body: "IUCB accredits Certification Bodies to ensure they operate in accordance with internationally recognized standards, providing confidence that audits and certifications are competent, consistent, and impartial.",
-  cta: { label: "Explore Accreditation", to: "/services" },
-  stat: { k: "85+", v: "Countries Served" },
-},
+    eyebrow: "Certification Bodies",
+    title: "Achieve International Accreditation",
+    accent: "Competence. Consistency. Impartiality.",
+    body: "IUCB accredits Certification Bodies to ensure they operate in accordance with internationally recognized standards, providing confidence that audits and certifications are competent, consistent, and impartial.",
+    cta: { label: "Explore Accreditation", to: "/services" },
+    stat: { k: "85+", v: "Countries Served" },
+  },
   {
-  eyebrow: "Instant Credential Verification",
-  title: "Instant, Cryptographic Verification",
-  accent: "Verify Every Credential with Confidence",
-  body: "Trust requires transparency. Instantly validate the authenticity and current status of any IUCB-issued credential using our secure verification console. Verify by Credential ID, QR code, or camera scan in real time.",
-  cta: { label: "Verify Authenticity", to: "/verify" },
-  stat: { k: "100%", v: "Verification Accuracy" },
-},
+    eyebrow: "Instant Credential Verification",
+    title: "Instant, Cryptographic Verification",
+    accent: "Verify Every Credential with Confidence",
+    body: "Trust requires transparency. Instantly validate the authenticity and current status of any IUCB-issued credential using our secure verification console. Verify by Credential ID, QR code, or camera scan in real time.",
+    cta: { label: "Verify Authenticity", to: "/verify" },
+    stat: { k: "100%", v: "Verification Accuracy" },
+  },
 ];
 
 const stats = [
@@ -82,16 +110,21 @@ const paths = [
 
 const problems = [
   {
-    problem: "Organizations struggle with fragmented compliance and multiple accreditation requirements.",
-    solution: "IUCB provides a unified, globally recognized accreditation framework covering ISO, Cybersecurity, and Privacy standards.",
+    problem:
+      "Organizations struggle with fragmented compliance and multiple accreditation requirements.",
+    solution:
+      "IUCB provides a unified, globally recognized accreditation framework covering ISO, Cybersecurity, and Privacy standards.",
   },
   {
     problem: "Employers and regulators need a trusted way to verify professional credentials.",
-    solution: "Every IUCB credential can be instantly verified through our secure cryptographic verification system.",
+    solution:
+      "Every IUCB credential can be instantly verified through our secure cryptographic verification system.",
   },
   {
-    problem: "Training providers and certification bodies need international recognition and credibility.",
-    solution: "IUCB accreditation demonstrates competence, impartiality, and compliance with internationally recognized standards.",
+    problem:
+      "Training providers and certification bodies need international recognition and credibility.",
+    solution:
+      "IUCB accreditation demonstrates competence, impartiality, and compliance with internationally recognized standards.",
   },
 ];
 
@@ -165,9 +198,11 @@ function HeroCarousel() {
 
   return (
     <section className="relative overflow-hidden" style={{ backgroundColor: "#F8FAFC" }}>
-      <div className="absolute inset-0 opacity-[0.45]"
+      <div
+        className="absolute inset-0 opacity-[0.45]"
         style={{
-          backgroundImage: "linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)",
+          backgroundImage:
+            "linear-gradient(to right, #E2E8F0 1px, transparent 1px), linear-gradient(to bottom, #E2E8F0 1px, transparent 1px)",
           backgroundSize: "56px 56px",
           maskImage: "radial-gradient(ellipse at center, black 40%, transparent 80%)",
         }}
@@ -183,15 +218,26 @@ function HeroCarousel() {
               key={s.title}
               className={`transition-all duration-700 ${idx === i ? "opacity-100 translate-y-0 relative" : "opacity-0 translate-y-3 absolute inset-0 pointer-events-none"}`}
             >
-              <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.22em] uppercase text-primary bg-white border border-gold/50 rounded-full px-3 py-1.5 shadow-sm" style={{ color: "#004B7A" }}>
+              <div
+                className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.22em] uppercase text-primary bg-white border border-gold/50 rounded-full px-3 py-1.5 shadow-sm"
+                style={{ color: "#004B7A" }}
+              >
                 <span className="h-1.5 w-1.5 rounded-full bg-gold" />
                 {s.eyebrow}
               </div>
-              <h1 className="mt-6 text-4xl md:text-5xl lg:text-[3.6rem] font-semibold leading-[1.05] tracking-tight" style={{ color: "#0F172A" }}>
+              <h1
+                className="mt-6 text-4xl md:text-5xl lg:text-[3.6rem] font-semibold leading-[1.05] tracking-tight"
+                style={{ color: "#0F172A" }}
+              >
                 {s.title}
               </h1>
-              <div className="mt-3 text-lg md:text-xl font-semibold" style={{ color: "#D4AF37" }}>{s.accent}</div>
-              <p className="mt-6 max-w-2xl text-base md:text-[17px] leading-relaxed" style={{ color: "#475569" }}>
+              <div className="mt-3 text-lg md:text-xl font-semibold" style={{ color: "#D4AF37" }}>
+                {s.accent}
+              </div>
+              <p
+                className="mt-6 max-w-2xl text-base md:text-[17px] leading-relaxed"
+                style={{ color: "#475569" }}
+              >
                 {s.body}
               </p>
 
@@ -203,8 +249,12 @@ function HeroCarousel() {
                   {s.cta.label} <ArrowRight className="h-4 w-4" />
                 </Link>
                 <div className="flex items-center gap-3 pl-2">
-                  <div className="text-2xl font-semibold" style={{ color: "#D4AF37" }}>{s.stat.k}</div>
-                  <div className="text-xs leading-tight max-w-[120px]" style={{ color: "#64748B" }}>{s.stat.v}</div>
+                  <div className="text-2xl font-semibold" style={{ color: "#D4AF37" }}>
+                    {s.stat.k}
+                  </div>
+                  <div className="text-xs leading-tight max-w-[120px]" style={{ color: "#64748B" }}>
+                    {s.stat.v}
+                  </div>
                 </div>
               </div>
             </div>
@@ -224,10 +274,18 @@ function HeroCarousel() {
             </div>
             <div className="h-5 w-px bg-primary/20" />
             <div className="flex items-center gap-1">
-              <button onClick={() => setI((p) => (p - 1 + slides.length) % slides.length)} className="h-8 w-8 grid place-items-center rounded-full border border-primary/25 text-primary hover:bg-primary/5 transition" aria-label="Previous">
+              <button
+                onClick={() => setI((p) => (p - 1 + slides.length) % slides.length)}
+                className="h-8 w-8 grid place-items-center rounded-full border border-primary/25 text-primary hover:bg-primary/5 transition"
+                aria-label="Previous"
+              >
                 <ChevronLeft className="h-4 w-4" />
               </button>
-              <button onClick={() => setI((p) => (p + 1) % slides.length)} className="h-8 w-8 grid place-items-center rounded-full border border-primary/25 text-primary hover:bg-primary/5 transition" aria-label="Next">
+              <button
+                onClick={() => setI((p) => (p + 1) % slides.length)}
+                className="h-8 w-8 grid place-items-center rounded-full border border-primary/25 text-primary hover:bg-primary/5 transition"
+                aria-label="Next"
+              >
                 <ChevronRight className="h-4 w-4" />
               </button>
             </div>
@@ -243,7 +301,10 @@ function HeroCarousel() {
             <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-2xl bg-gold/20 -rotate-6" />
 
             {/* Main panel — dark navy card to anchor the gray scene */}
-            <div className="relative h-full rounded-2xl overflow-hidden border border-white/10 text-white p-7 shadow-2xl shadow-primary/20" style={{ background: "linear-gradient(135deg, #0F172A 0%, #004B7A 100%)" }}>
+            <div
+              className="relative h-full rounded-2xl overflow-hidden border border-white/10 text-white p-7 shadow-2xl shadow-primary/20"
+              style={{ background: "linear-gradient(135deg, #0F172A 0%, #004B7A 100%)" }}
+            >
               {i === 0 && <BusinessVisual />}
               {i === 1 && <AuditorVisual />}
               {i === 2 && <CryptoVisual />}
@@ -259,7 +320,9 @@ function BusinessVisual() {
   return (
     <div className="h-full flex flex-col justify-between">
       <div className="flex items-center justify-between">
-        <div className="text-[10px] tracking-[0.25em] uppercase text-white/70">Global Impact Index</div>
+        <div className="text-[10px] tracking-[0.25em] uppercase text-white/70">
+          Global Impact Index
+        </div>
         <div className="text-[10px] tracking-[0.25em] uppercase text-gold">Q2 / 2026</div>
       </div>
       <div className="grid grid-cols-3 gap-3 mt-6">
@@ -277,16 +340,22 @@ function BusinessVisual() {
       <div className="mt-6 space-y-2.5">
         {[72, 88, 64, 91].map((w, idx) => (
           <div key={idx} className="flex items-center gap-3">
-            <div className="text-[10px] w-16 text-white/60 uppercase tracking-wider">Sector {idx + 1}</div>
+            <div className="text-[10px] w-16 text-white/60 uppercase tracking-wider">
+              Sector {idx + 1}
+            </div>
             <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-secondary to-gold rounded-full" style={{ width: `${w}%` }} />
+              <div
+                className="h-full bg-gradient-to-r from-secondary to-gold rounded-full"
+                style={{ width: `${w}%` }}
+              />
             </div>
             <div className="text-[10px] w-8 text-white/70 text-right">{w}%</div>
           </div>
         ))}
       </div>
       <div className="mt-6 rounded-lg bg-gold/10 border border-gold/30 p-3 text-[11px] text-white/80">
-        Independent research shows organizations with IUCB-recognized credentials win 2.4× more enterprise tenders.
+        Independent research shows organizations with IUCB-recognized credentials win 2.4× more
+        enterprise tenders.
       </div>
     </div>
   );
@@ -301,7 +370,9 @@ function AuditorVisual() {
   return (
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between">
-        <div className="text-[10px] tracking-[0.25em] uppercase text-white/70">Competency Registry</div>
+        <div className="text-[10px] tracking-[0.25em] uppercase text-white/70">
+          Competency Registry
+        </div>
         <div className="text-[10px] tracking-[0.25em] uppercase text-gold">Active</div>
       </div>
       <div className="mt-6 space-y-3">
@@ -309,12 +380,16 @@ function AuditorVisual() {
           <div key={tier.t} className="rounded-lg bg-white/5 border border-white/10 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`h-9 w-9 rounded-full grid place-items-center ${tier.tone === "gold" ? "bg-gold/20 border border-gold/40 text-gold" : tier.tone === "secondary" ? "bg-secondary/30 border border-secondary/50 text-white" : "bg-white/10 border border-white/15 text-white/80"}`}>
+                <div
+                  className={`h-9 w-9 rounded-full grid place-items-center ${tier.tone === "gold" ? "bg-gold/20 border border-gold/40 text-gold" : tier.tone === "secondary" ? "bg-secondary/30 border border-secondary/50 text-white" : "bg-white/10 border border-white/15 text-white/80"}`}
+                >
                   <Users className="h-4 w-4" />
                 </div>
                 <div>
                   <div className="text-sm font-semibold text-white">{tier.t}</div>
-                  <div className="text-[10px] text-white/60 uppercase tracking-wider">ISO 27001 / 27701</div>
+                  <div className="text-[10px] text-white/60 uppercase tracking-wider">
+                    ISO 27001 / 27701
+                  </div>
                 </div>
               </div>
               <div className="text-right">
@@ -338,7 +413,9 @@ function CryptoVisual() {
     <div className="h-full flex flex-col">
       <div className="flex items-center justify-between">
         <div className="text-[10px] tracking-[0.25em] uppercase text-white/70">Ledger Snapshot</div>
-        <div className="inline-flex items-center gap-1 text-[10px] tracking-[0.25em] uppercase text-gold"><span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" /> Live</div>
+        <div className="inline-flex items-center gap-1 text-[10px] tracking-[0.25em] uppercase text-gold">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" /> Live
+        </div>
       </div>
       <div className="mt-5 rounded-lg bg-white/5 border border-white/10 p-4">
         <div className="flex items-center justify-between">
@@ -350,15 +427,22 @@ function CryptoVisual() {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {["ACC-2026-8942 issued", "AUD-2026-1284 renewed", "TRN-2026-0421 verified"].map((row, idx) => (
-          <div key={row} className="flex items-center justify-between rounded-md bg-white/[0.04] border border-white/10 px-3 py-2 text-[11px]">
-            <div className="flex items-center gap-2 text-white/80">
-              <span className={`h-1.5 w-1.5 rounded-full ${idx === 0 ? "bg-gold" : "bg-secondary"}`} />
-              {row}
+        {["ACC-2026-8942 issued", "AUD-2026-1284 renewed", "TRN-2026-0421 verified"].map(
+          (row, idx) => (
+            <div
+              key={row}
+              className="flex items-center justify-between rounded-md bg-white/[0.04] border border-white/10 px-3 py-2 text-[11px]"
+            >
+              <div className="flex items-center gap-2 text-white/80">
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${idx === 0 ? "bg-gold" : "bg-secondary"}`}
+                />
+                {row}
+              </div>
+              <span className="font-mono text-[10px] text-white/50">2s ago</span>
             </div>
-            <span className="font-mono text-[10px] text-white/50">2s ago</span>
-          </div>
-        ))}
+          ),
+        )}
       </div>
       <div className="mt-auto pt-5 grid grid-cols-2 gap-3">
         <div className="rounded-md bg-gold/10 border border-gold/30 p-3 text-center">
@@ -381,9 +465,16 @@ function KpiStrip() {
     <section className="bg-white border-b border-border">
       <div className="container-x py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s) => (
-          <div key={s.label} className="text-center md:text-left border-l-2 border-gold pl-4 md:pl-5">
-            <div className="text-3xl md:text-[2.25rem] font-semibold text-gold tracking-tight leading-none">{s.value}</div>
-            <div className="mt-2 text-[12px] text-muted-foreground uppercase tracking-wider">{s.label}</div>
+          <div
+            key={s.label}
+            className="text-center md:text-left border-l-2 border-gold pl-4 md:pl-5"
+          >
+            <div className="text-3xl md:text-[2.25rem] font-semibold text-gold tracking-tight leading-none">
+              {s.value}
+            </div>
+            <div className="mt-2 text-[12px] text-muted-foreground uppercase tracking-wider">
+              {s.label}
+            </div>
           </div>
         ))}
       </div>
@@ -403,7 +494,9 @@ function InstitutionalOverview() {
             Building institutional trust — one verified credential at a time.
           </h2>
           <p className="mt-5 text-muted-foreground leading-relaxed max-w-xl">
-            IUCB sits at the intersection of regulation, standards bodies, and industry, providing the rigorous, independent assessment that governments and enterprises require to make confident decisions.
+            IUCB sits at the intersection of regulation, standards bodies, and industry, providing
+            the rigorous, independent assessment that governments and enterprises require to make
+            confident decisions.
           </p>
           <div className="mt-7 grid sm:grid-cols-2 gap-4">
             {[
@@ -412,7 +505,10 @@ function InstitutionalOverview() {
               { icon: Scale, t: "Tamper-Evident Security" },
               { icon: BadgeCheck, t: "ISO Alignment" },
             ].map((x) => (
-              <div key={x.t} className="flex items-center gap-3 rounded-lg bg-white border border-border p-3.5">
+              <div
+                key={x.t}
+                className="flex items-center gap-3 rounded-lg bg-white border border-border p-3.5"
+              >
                 <div className="h-9 w-9 rounded-md bg-light-blue text-primary grid place-items-center">
                   <x.icon className="h-4.5 w-4.5" />
                 </div>
@@ -425,10 +521,30 @@ function InstitutionalOverview() {
         {/* Image montage */}
         <div className="lg:col-span-6">
           <div className="relative h-[460px]">
-            <MontagePanel className="absolute top-0 left-0 w-[60%] h-[58%]" tone="primary" Icon={Landmark} caption="HQ · Tallinn" />
-            <MontagePanel className="absolute top-[8%] right-0 w-[44%] h-[40%]" tone="secondary" Icon={Globe2} caption="85+ Countries" />
-            <MontagePanel className="absolute bottom-0 right-[8%] w-[58%] h-[52%]" tone="gold" Icon={ShieldCheck} caption="Global Recognition" />
-            <MontagePanel className="absolute bottom-[12%] left-[6%] w-[34%] h-[34%]" tone="light" Icon={Users} caption="Verified Credentials" />
+            <MontagePanel
+              className="absolute top-0 left-0 w-[60%] h-[58%]"
+              tone="primary"
+              Icon={Landmark}
+              caption="HQ · Tallinn"
+            />
+            <MontagePanel
+              className="absolute top-[8%] right-0 w-[44%] h-[40%]"
+              tone="secondary"
+              Icon={Globe2}
+              caption="85+ Countries"
+            />
+            <MontagePanel
+              className="absolute bottom-0 right-[8%] w-[58%] h-[52%]"
+              tone="gold"
+              Icon={ShieldCheck}
+              caption="Global Recognition"
+            />
+            <MontagePanel
+              className="absolute bottom-[12%] left-[6%] w-[34%] h-[34%]"
+              tone="light"
+              Icon={Users}
+              caption="Verified Credentials"
+            />
           </div>
         </div>
       </div>
@@ -442,8 +558,13 @@ function InstitutionalOverview() {
             { k: "85+", v: "Countries Served" },
             { k: "2,000+", v: "Certified Auditors" },
           ].map((m) => (
-            <div key={m.v} className="relative flex items-baseline gap-4 border-l-2 border-gold pl-4">
-              <div className="text-4xl md:text-5xl font-semibold text-gold tracking-tight">{m.k}</div>
+            <div
+              key={m.v}
+              className="relative flex items-baseline gap-4 border-l-2 border-gold pl-4"
+            >
+              <div className="text-4xl md:text-5xl font-semibold text-gold tracking-tight">
+                {m.k}
+              </div>
               <div className="text-sm text-white/80">{m.v}</div>
             </div>
           ))}
@@ -454,8 +575,16 @@ function InstitutionalOverview() {
 }
 
 function MontagePanel({
-  className, tone, Icon, caption,
-}: { className: string; tone: "primary" | "secondary" | "gold" | "light"; Icon: typeof ShieldCheck; caption: string }) {
+  className,
+  tone,
+  Icon,
+  caption,
+}: {
+  className: string;
+  tone: "primary" | "secondary" | "gold" | "light";
+  Icon: typeof ShieldCheck;
+  caption: string;
+}) {
   const tones: Record<string, string> = {
     primary: "from-primary to-[#003a60] text-white",
     secondary: "from-secondary to-primary text-white",
@@ -464,10 +593,17 @@ function MontagePanel({
   };
   return (
     <div className={`${className} group`}>
-      <div className={`relative h-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-1 group-hover:scale-[1.04] group-hover:ring-2 group-hover:ring-gold/60`}>
+      <div
+        className={`relative h-full rounded-2xl overflow-hidden border-2 border-gold/60 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-1 group-hover:scale-[1.04] group-hover:ring-2 group-hover:ring-gold/60`}
+      >
         <div className={`absolute inset-0 bg-gradient-to-br ${tones[tone]}`} />
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(circle at 30% 20%, white 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: "radial-gradient(circle at 30% 20%, white 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
         <div className="relative h-full flex flex-col justify-between p-5">
           <Icon className="h-8 w-8 opacity-90" />
           <div>
@@ -488,8 +624,12 @@ function AudiencePaths() {
       <div className="container-x">
         <div className="max-w-2xl">
           <div className="eyebrow">How Can We Help You?</div>
-          <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy tracking-tight">Choose your path to get started</h2>
-          <p className="mt-4 text-muted-foreground">Tailored journeys for every stakeholder in the accreditation ecosystem.</p>
+          <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy tracking-tight">
+            Choose your path to get started
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Tailored journeys for every stakeholder in the accreditation ecosystem.
+          </p>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {paths.map((p) => (
@@ -525,11 +665,16 @@ function ProblemSolution() {
           <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy tracking-tight">
             The Problem We <span className="text-secondary">Solve</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">Mapping common industry compliance failures against our platform capabilities.</p>
+          <p className="mt-4 text-muted-foreground">
+            Mapping common industry compliance failures against our platform capabilities.
+          </p>
         </div>
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           {problems.map((p, i) => (
-            <article key={i} className="rounded-2xl overflow-hidden border border-border bg-white shadow-sm hover:shadow-lg transition">
+            <article
+              key={i}
+              className="rounded-2xl overflow-hidden border border-border bg-white shadow-sm hover:shadow-lg transition"
+            >
               <div className="bg-[#FFF7E6] border-b border-gold/20 p-5">
                 <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-[#8a6a00]">
                   <AlertTriangle className="h-3.5 w-3.5" /> Problem 0{i + 1}
@@ -577,7 +722,9 @@ function WhatWeOffer() {
           </h2>
 
           <p className="mt-4 text-white/75">
-            Whether you are an organization seeking certification, a professional advancing your career, or a training provider standardizing your curriculum, IUCB provides a globally recognized accreditation framework.
+            Whether you are an organization seeking certification, a professional advancing your
+            career, or a training provider standardizing your curriculum, IUCB provides a globally
+            recognized accreditation framework.
           </p>
         </div>
 
@@ -611,13 +758,9 @@ function WhatWeOffer() {
                 <c.icon className="h-6 w-6" />
               </div>
 
-              <h3 className="mt-5 text-xl font-semibold">
-                {c.title}
-              </h3>
+              <h3 className="mt-5 text-xl font-semibold">{c.title}</h3>
 
-              <p className="mt-2 text-sm text-white/70 leading-relaxed">
-                {c.desc}
-              </p>
+              <p className="mt-2 text-sm text-white/70 leading-relaxed">{c.desc}</p>
 
               <div className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-gold">
                 Explore
@@ -644,7 +787,9 @@ function TrustPillars() {
           </h2>
 
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Trust is earned through independence, transparency, international recognition, and secure credential verification. IUCB provides a globally recognized framework that strengthens confidence in accredited organizations and certified professionals.
+            Trust is earned through independence, transparency, international recognition, and
+            secure credential verification. IUCB provides a globally recognized framework that
+            strengthens confidence in accredited organizations and certified professionals.
           </p>
         </div>
 
@@ -658,13 +803,9 @@ function TrustPillars() {
                 <t.icon className="h-5 w-5" />
               </div>
 
-              <h3 className="mt-4 font-semibold text-navy">
-                {t.title}
-              </h3>
+              <h3 className="mt-4 font-semibold text-navy">{t.title}</h3>
 
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                {t.desc}
-              </p>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
             </div>
           ))}
         </div>
@@ -687,10 +828,9 @@ function IndustriesRow() {
           </h2>
 
           <p className="mt-4 text-muted-foreground">
-            IUCB works with Certification Bodies, Individual Auditors, Training
-            Providers, Governments, Regulators, and Enterprises to strengthen
-            confidence in accredited organizations and certified professionals
-            around the world.
+            IUCB works with Certification Bodies, Individual Auditors, Training Providers,
+            Governments, Regulators, and Enterprises to strengthen confidence in accredited
+            organizations and certified professionals around the world.
           </p>
         </div>
 
@@ -702,9 +842,7 @@ function IndustriesRow() {
             >
               <i.icon className="h-7 w-7 mx-auto text-secondary" />
 
-              <div className="mt-3 text-sm font-medium text-navy">
-                {i.label}
-              </div>
+              <div className="mt-3 text-sm font-medium text-navy">{i.label}</div>
             </div>
           ))}
         </div>
@@ -712,4 +850,3 @@ function IndustriesRow() {
     </section>
   );
 }
-

@@ -7,7 +7,14 @@ import { apiClient } from "../lib/api-client";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import { Mail, CheckCircle, ShieldAlert, ArrowLeft } from "lucide-react";
 
 const forgotPasswordSchema = z.object({
@@ -42,8 +49,16 @@ function ForgotPasswordComponent() {
         email: data.email,
       });
       setIsSuccess(true);
-    } catch (error: any) {
-      setErrorMessage(error.response?.data?.message || "Failed to process request. Please try again.");
+    } catch (error: unknown) {
+      const message =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message ===
+          "string"
+          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          : null;
+      setErrorMessage(message || "Failed to process request. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -73,7 +88,8 @@ function ForgotPasswordComponent() {
             </div>
             <h3 className="text-lg font-semibold text-slate-900">Request Received</h3>
             <p className="text-sm text-slate-600">
-              If the email address matches an active account, password recovery instructions will be dispatched.
+              If the email address matches an active account, password recovery instructions will be
+              dispatched.
             </p>
             <div className="pt-4">
               <a
@@ -95,7 +111,9 @@ function ForgotPasswordComponent() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-slate-700 font-medium">Email Address</Label>
+                <Label htmlFor="email" className="text-slate-700 font-medium">
+                  Email Address
+                </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                   <Input

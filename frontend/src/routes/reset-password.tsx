@@ -7,17 +7,26 @@ import { apiClient } from "../lib/api-client";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
 import { Lock, Eye, EyeOff, ShieldAlert, CheckCircle, ArrowLeft } from "lucide-react";
 
-const resetPasswordSchema = z.object({
-  token: z.string().min(1, "Reset token is required"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-  confirmPassword: z.string().min(8, "Confirm password must be at least 8 characters"),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords do not match",
-  path: ["confirmPassword"],
-});
+const resetPasswordSchema = z
+  .object({
+    token: z.string().min(1, "Reset token is required"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string().min(8, "Confirm password must be at least 8 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
 
 type ResetPasswordValues = z.infer<typeof resetPasswordSchema>;
 
@@ -34,7 +43,7 @@ export const Route = createFileRoute("/reset-password")({
 function ResetPasswordComponent() {
   const navigate = useNavigate();
   const search = Route.useSearch();
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -62,8 +71,16 @@ function ResetPasswordComponent() {
         password: data.password,
       });
       setIsSuccess(true);
-    } catch (error: any) {
-      setErrorMessage(error.response?.data?.message || "Invalid or expired token. Please request another reset link.");
+    } catch (error: unknown) {
+      const message =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message ===
+          "string"
+          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          : null;
+      setErrorMessage(message || "Invalid or expired token. Please request another reset link.");
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +110,8 @@ function ResetPasswordComponent() {
             </div>
             <h3 className="text-lg font-semibold text-slate-900">Success!</h3>
             <p className="text-sm text-slate-600 font-medium">
-              Your password has been successfully updated. All other active sessions have been forced to log out for security.
+              Your password has been successfully updated. All other active sessions have been
+              forced to log out for security.
             </p>
             <div className="pt-4">
               <Button
@@ -116,7 +134,9 @@ function ResetPasswordComponent() {
 
               {/* Reset token input - filled from query params if present, or entered manually */}
               <div className="space-y-2">
-                <Label htmlFor="token" className="text-slate-700 font-medium">Reset Token</Label>
+                <Label htmlFor="token" className="text-slate-700 font-medium">
+                  Reset Token
+                </Label>
                 <Input
                   id="token"
                   placeholder="Paste secure token received"
@@ -130,7 +150,9 @@ function ResetPasswordComponent() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-slate-700 font-medium">New Password</Label>
+                <Label htmlFor="password" className="text-slate-700 font-medium">
+                  New Password
+                </Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -154,7 +176,9 @@ function ResetPasswordComponent() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-slate-700 font-medium">Confirm New Password</Label>
+                <Label htmlFor="confirmPassword" className="text-slate-700 font-medium">
+                  Confirm New Password
+                </Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -164,7 +188,9 @@ function ResetPasswordComponent() {
                   {...register("confirmPassword")}
                 />
                 {errors.confirmPassword && (
-                  <p className="text-xs text-red-600 font-medium">{errors.confirmPassword.message}</p>
+                  <p className="text-xs text-red-600 font-medium">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
               </div>
             </CardContent>
