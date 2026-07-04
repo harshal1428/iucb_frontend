@@ -80,7 +80,7 @@ export function SiteHeader() {
             <div className="leading-tight">
               <div className="text-[15px] font-bold tracking-tight text-primary">IUCB</div>
               <div className="text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                International Union of Certification Bodies
+                INTERNATIONAL UNION FOR CERTIFICATION AND BENCHMARKING
               </div>
             </div>
           </Link>
