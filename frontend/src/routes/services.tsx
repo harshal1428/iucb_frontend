@@ -193,7 +193,7 @@ function Services() {
   return (
     <>
       <section className="bg-primary text-primary-foreground">
-        <div className="container-x py-16 md:py-20">
+        <div className="container-x py-12 md:py-16">
           <div className="text-xs font-semibold tracking-[0.2em] uppercase text-gold">
             Accreditation Services
           </div>
@@ -210,7 +210,7 @@ function Services() {
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-10 md:py-12 bg-white">
         <div className="container-x">
           <div className="inline-flex bg-soft-gray rounded-lg p-1.5 gap-1 flex-wrap">
             {tabs.map((t) => (
@@ -229,7 +229,7 @@ function Services() {
             ))}
           </div>
 
-          <div className="mt-10 grid lg:grid-cols-12 gap-10">
+          <div className="mt-8 grid lg:grid-cols-12 gap-8">
             <div className="lg:col-span-8">
               <div className="text-xs font-semibold tracking-[0.2em] uppercase text-secondary">
                 {c.badge}
@@ -237,7 +237,7 @@ function Services() {
               <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy">{c.title}</h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">{c.intro}</p>
 
-              <div className="mt-10 grid md:grid-cols-2 gap-6">
+              <div className="mt-8 grid md:grid-cols-2 gap-5">
                 <div className="rounded-xl border border-border p-6">
                   <h3 className="font-semibold text-navy flex items-center gap-2">
                     <Award className="h-4 w-4 text-gold" /> Program Benefits
@@ -312,7 +312,7 @@ function Services() {
             <aside className="lg:col-span-4">
               <div
                 key={active}
-                className="sticky top-28 rounded-2xl bg-primary text-primary-foreground p-8 relative overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300"
+                className="sticky top-28 rounded-2xl bg-primary text-primary-foreground p-6 relative overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300"
               >
                 <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-gold/20 blur-2xl" />
                 <div className="relative">

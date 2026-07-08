@@ -11,6 +11,7 @@ import {
   FileCheck2,
   Download,
   Loader2,
+  Lock,
 } from "lucide-react";
 import { PageHero } from "../components/page-hero";
 import { downloadCertificatePdf } from "../lib/certificate-pdf";
@@ -111,64 +112,85 @@ function Verify() {
         description="Confirm the authenticity, scope, and validity of an IUCB-issued accreditation or certification. Every credential is tamper-evident and traceable."
       />
 
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-14 md:py-20 bg-white">
         <div className="container-x">
-          <div className="mx-auto max-w-3xl">
-            <form
-              onSubmit={onSubmit}
-              className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-lg"
-            >
-              <label className="text-xs font-semibold uppercase tracking-wider text-primary">
-                Certificate ID
-              </label>
-              <div className="mt-3 grid sm:grid-cols-[1fr_auto] gap-3">
-                <div className="relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <input
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}
-                    placeholder="e.g. IUCB-ACB-0421"
-                    className="w-full pl-12 pr-4 py-3.5 rounded-lg border border-border bg-white font-mono text-navy focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                  />
+          <div className="max-w-3xl mx-auto">
+            {/* Search form */}
+            <div className="rounded-2xl border border-border bg-white p-6 md:p-8 shadow-[0_4px_24px_-4px_rgba(0,75,122,0.12)]">
+              <div className="flex items-center gap-2 mb-5">
+                <div className="h-8 w-8 rounded-lg bg-primary/10 grid place-items-center">
+                  <Lock className="h-4 w-4 text-primary" />
                 </div>
-                <button
-                  type="submit"
-                  className="px-6 py-3.5 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-secondary transition"
-                >
-                  Verify Certificate
-                </button>
-              </div>
-              <div className="mt-5 flex items-center gap-3 text-xs text-muted-foreground">
-                <div className="flex items-center gap-1.5">
-                  <QrCode className="h-4 w-4 text-secondary" /> Or scan the QR code on your
-                  certificate
+                <div>
+                  <div className="text-[13px] font-bold text-navy">Certificate Verification</div>
+                  <div className="text-[11px] text-muted-foreground">
+                    Enter a Certificate ID to verify authenticity
+                  </div>
                 </div>
-                <span>•</span>
-                <span>Try: IUCB-ACB-0421</span>
               </div>
-            </form>
+              <form onSubmit={onSubmit}>
+                <div className="grid sm:grid-cols-[1fr_auto] gap-3">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-muted-foreground" />
+                    <input
+                      value={id}
+                      onChange={(e) => setId(e.target.value)}
+                      placeholder="e.g. IUCB-ACB-0421"
+                      className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-border bg-soft-gray font-mono text-navy text-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="px-6 py-3.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-secondary hover:-translate-y-px transition-all duration-200 shadow-[0_4px_12px_-2px_rgba(0,75,122,0.4)] whitespace-nowrap"
+                  >
+                    Verify Certificate
+                  </button>
+                </div>
+                <div className="mt-4 flex items-center gap-3 text-[11px] text-muted-foreground">
+                  <div className="flex items-center gap-1.5">
+                    <QrCode className="h-3.5 w-3.5 text-secondary" />
+                    Or scan the QR code on your certificate
+                  </div>
+                  <span className="text-border">·</span>
+                  <span>
+                    Try:{" "}
+                    <button
+                      type="button"
+                      onClick={() => setId("IUCB-ACB-0421")}
+                      className="font-mono text-secondary hover:text-primary transition-colors"
+                    >
+                      IUCB-ACB-0421
+                    </button>
+                  </span>
+                </div>
+              </form>
+            </div>
 
+            {/* Result */}
             {searched && result && (
-              <div className="mt-8">
+              <div className="mt-6">
                 {result.ok ? (
-                  <div className="rounded-2xl overflow-hidden border border-border shadow-xl">
-                    <div className="bg-primary text-primary-foreground p-6 flex items-center justify-between">
+                  <div className="rounded-2xl overflow-hidden border border-border shadow-[0_12px_32px_-8px_rgba(0,75,122,0.2)]">
+                    {/* Header */}
+                    <div className="bg-primary text-primary-foreground px-6 py-5 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-gold text-gold-foreground grid place-items-center">
-                          <ShieldCheck className="h-5 w-5" />
+                        <div className="h-10 w-10 rounded-xl bg-gold/20 border border-gold/30 grid place-items-center">
+                          <ShieldCheck className="h-5 w-5 text-gold" />
                         </div>
                         <div>
-                          <div className="text-xs uppercase tracking-widest text-gold">
+                          <div className="text-[10px] uppercase tracking-widest text-gold font-bold">
                             Verified
                           </div>
-                          <div className="font-semibold">Valid IUCB Credential</div>
+                          <div className="font-semibold text-sm">Valid IUCB Credential</div>
                         </div>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold bg-gold text-gold-foreground rounded-full">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-bold bg-gold text-gold-foreground rounded-full shadow-sm">
                         <BadgeCheck className="h-3.5 w-3.5" /> {result.status}
                       </span>
                     </div>
-                    <div className="bg-white p-6 md:p-8 grid sm:grid-cols-2 gap-6">
+
+                    {/* Fields */}
+                    <div className="bg-white p-6 grid sm:grid-cols-2 gap-5">
                       <Field icon={Building2} label="Credential Holder" value={result.holder!} />
                       <Field icon={FileCheck2} label="Certificate ID" value={result.id} mono />
                       <Field icon={ShieldCheck} label="Scope" value={result.scope!} />
@@ -178,33 +200,37 @@ function Verify() {
                         value={`${result.issued} → ${result.expires}`}
                       />
                     </div>
-                    <div className="bg-soft-gray border-t border-border p-5 md:px-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                      <div className="text-xs text-muted-foreground">
+
+                    {/* Footer */}
+                    <div className="bg-soft-gray border-t border-border px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <div className="text-[11px] text-muted-foreground">
                         Cryptographically signed · Verifiable via QR · Listed in the IUCB public
                         registry.
                       </div>
                       <button
                         onClick={onDownload}
                         disabled={downloading}
-                        className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gold text-gold-foreground font-semibold hover:brightness-95 transition disabled:opacity-70"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gold text-gold-foreground text-[12px] font-bold hover:brightness-110 hover:-translate-y-px transition-all duration-200 shadow-[0_4px_12px_-2px_rgba(212,175,55,0.4)] disabled:opacity-70 disabled:pointer-events-none"
                       >
                         {downloading ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
                         ) : (
-                          <Download className="h-4 w-4" />
+                          <Download className="h-3.5 w-3.5" />
                         )}
                         {downloading ? "Generating PDF…" : "Download Certified Ledger PDF"}
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <div className="rounded-2xl border border-destructive/30 bg-destructive/5 p-8 flex items-start gap-4">
-                    <AlertCircle className="h-6 w-6 text-destructive flex-shrink-0" />
+                  <div className="rounded-2xl border border-destructive/25 bg-destructive/4 p-6 flex items-start gap-4">
+                    <div className="h-9 w-9 rounded-lg bg-destructive/10 grid place-items-center flex-shrink-0">
+                      <AlertCircle className="h-4.5 w-4.5 text-destructive" />
+                    </div>
                     <div>
-                      <div className="font-semibold text-navy">
+                      <div className="font-semibold text-navy text-[14px]">
                         No credential found for "{result.id}"
                       </div>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-1 text-[13px] text-muted-foreground">
                         Please re-check the ID or contact verifications@iucb.org. Counterfeit
                         certificates can be reported confidentially.
                       </p>
@@ -214,7 +240,8 @@ function Verify() {
               </div>
             )}
 
-            <div className="mt-12 grid sm:grid-cols-3 gap-4">
+            {/* Feature pills */}
+            <div className="mt-10 grid sm:grid-cols-3 gap-3">
               {[
                 {
                   icon: ShieldCheck,
@@ -232,10 +259,15 @@ function Verify() {
                   desc: "All credentials listed in the IUCB Directory.",
                 },
               ].map((f) => (
-                <div key={f.title} className="rounded-xl border border-border p-5 text-center">
-                  <f.icon className="h-6 w-6 mx-auto text-secondary" />
-                  <div className="mt-3 font-semibold text-navy text-sm">{f.title}</div>
-                  <p className="mt-1 text-xs text-muted-foreground">{f.desc}</p>
+                <div
+                  key={f.title}
+                  className="rounded-xl border border-border bg-white p-4 text-center hover:border-primary/20 hover:shadow-[0_4px_16px_-4px_rgba(0,75,122,0.1)] transition-all duration-200"
+                >
+                  <div className="h-9 w-9 rounded-lg bg-light-blue text-primary grid place-items-center mx-auto mb-3">
+                    <f.icon className="h-4 w-4" />
+                  </div>
+                  <div className="font-semibold text-navy text-[13px]">{f.title}</div>
+                  <p className="mt-1 text-[11px] text-muted-foreground">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -259,10 +291,10 @@ function Field({
 }) {
   return (
     <div>
-      <div className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted-foreground">
-        <Icon className="h-3.5 w-3.5" /> {label}
+      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mb-1.5">
+        <Icon className="h-3 w-3" /> {label}
       </div>
-      <div className={`mt-1.5 text-navy font-semibold ${mono ? "font-mono text-sm" : ""}`}>
+      <div className={`text-navy font-semibold ${mono ? "font-mono text-sm" : "text-[14px]"}`}>
         {value}
       </div>
     </div>

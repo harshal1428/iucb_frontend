@@ -9,7 +9,6 @@ import {
   GraduationCap,
   Search,
   ArrowRight,
-  FileCheck2,
   Award,
   Lock,
   Scale,
@@ -17,18 +16,15 @@ import {
   CheckCircle2,
   AlertTriangle,
   Briefcase,
-  Cpu,
-  HeartPulse,
-  Banknote,
-  Factory,
   Landmark,
-  Quote,
   QrCode,
   Upload,
   Loader2,
   ChevronLeft,
   ChevronRight,
+  Download,
   Calendar,
+  FileCheck2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -180,7 +176,7 @@ function Home() {
       <InstitutionalOverview />
       <AudiencePaths />
       <ProblemSolution />
-      <WhatWeOffer />
+      <TailoredAccreditationSection />
       <TrustPillars />
       <IndustriesRow />
     </>
@@ -210,7 +206,7 @@ function HeroCarousel() {
       <div className="absolute -top-32 -right-32 h-[36rem] w-[36rem] rounded-full bg-secondary/10 blur-3xl" />
       <div className="absolute -bottom-32 left-1/4 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
 
-      <div className="container-x relative pt-14 pb-20 md:pt-20 md:pb-28 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center min-h-[560px]">
+      <div className="container-x relative pt-10 pb-14 md:pt-14 md:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center min-h-[480px]">
         {/* LEFT: cross-fade text */}
         <div className="lg:col-span-7 relative min-h-[380px]">
           {slides.map((s, idx) => (
@@ -463,7 +459,7 @@ function CryptoVisual() {
 function KpiStrip() {
   return (
     <section className="bg-white border-b border-border">
-      <div className="container-x py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="container-x py-7 grid grid-cols-2 md:grid-cols-4 gap-5">
         {stats.map((s) => (
           <div
             key={s.label}
@@ -486,8 +482,8 @@ function KpiStrip() {
 
 function InstitutionalOverview() {
   return (
-    <section className="py-20 md:py-24 bg-soft-gray">
-      <div className="container-x grid lg:grid-cols-12 gap-12 items-center">
+    <section className="py-12 md:py-16 bg-soft-gray">
+      <div className="container-x grid lg:grid-cols-12 gap-10 items-center">
         <div className="lg:col-span-6">
           <div className="eyebrow">The Trust Framework</div>
           <h2 className="mt-3 text-3xl md:text-[2.6rem] font-semibold leading-[1.1] text-primary tracking-tight">
@@ -550,7 +546,7 @@ function InstitutionalOverview() {
       </div>
 
       {/* underlay performance banner */}
-      <div className="container-x mt-16">
+      <div className="container-x mt-10">
         <div className="rounded-2xl bg-primary text-white p-6 md:p-8 grid md:grid-cols-3 gap-6 md:gap-10 relative overflow-hidden">
           <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold/15 blur-3xl" />
           {[
@@ -620,7 +616,7 @@ function MontagePanel({
 
 function AudiencePaths() {
   return (
-    <section className="py-20 md:py-24 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="container-x">
         <div className="max-w-2xl">
           <div className="eyebrow">How Can We Help You?</div>
@@ -631,12 +627,12 @@ function AudiencePaths() {
             Tailored journeys for every stakeholder in the accreditation ecosystem.
           </p>
         </div>
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {paths.map((p) => (
             <Link
               key={p.title}
               to={p.to as never}
-              className="group relative rounded-2xl border border-border bg-white p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-primary transition-all duration-300"
+              className="group relative rounded-2xl border border-border bg-white p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-primary transition-all duration-300"
             >
               <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 text-gold-foreground grid place-items-center">
                 <p.icon className="h-5 w-5 text-primary" />
@@ -658,7 +654,7 @@ function AudiencePaths() {
 
 function ProblemSolution() {
   return (
-    <section className="py-20 md:py-24 bg-soft-gray">
+    <section className="py-12 md:py-16 bg-soft-gray">
       <div className="container-x">
         <div className="max-w-2xl">
           <div className="eyebrow">The Solution Matrix</div>
@@ -669,7 +665,7 @@ function ProblemSolution() {
             Mapping common industry compliance failures against our platform capabilities.
           </p>
         </div>
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
+        <div className="mt-8 grid md:grid-cols-3 gap-5">
           {problems.map((p, i) => (
             <article
               key={i}
@@ -700,9 +696,38 @@ function ProblemSolution() {
 
 /* ----------------------------- WHAT WE OFFER ----------------------------- */
 
-function WhatWeOffer() {
+function TailoredAccreditationSection() {
+  const [certId, setCertId] = useState("");
+  const [result, setResult] = useState<{
+    ok: boolean; id: string; holder?: string;
+    scope?: string; issued?: string; status?: string;
+  } | null>(null);
+  const [searched, setSearched] = useState(false);
+
+  const sampleData: Record<string, { ok: boolean; id: string; holder: string; scope: string; issued: string; status: string }> = {
+    "IUCB-ACB-0421": { ok: true, id: "IUCB-ACB-0421", holder: "EuroCert International", scope: "ISO/IEC 27001:2022", issued: "12 March 2026", status: "Active" },
+    "IUCB-AAP-1284": { ok: true, id: "IUCB-AAP-1284", holder: "Dr. Aisha Khan", scope: "ISO 27001 Lead Auditor", issued: "02 Sep 2025", status: "Active" },
+    "ACC-2026-8942": { ok: true, id: "ACC-2026-8942", holder: "Meridian Compliance Group", scope: "ISO/IEC 17021-1:2015", issued: "20 Jan 2026", status: "Active" },
+  };
+
+  const onVerify = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSearched(true);
+    const key = certId.trim().toUpperCase();
+    setResult(sampleData[key] ?? { ok: false, id: key });
+  };
+
+  const displayResult = searched && result ? result : {
+    ok: true, id: "IUCB-ACB-0421", holder: "EuroCert International",
+    scope: "ISO/IEC 27001:2022", issued: "12 March 2026", status: "Active",
+  };
+
   return (
-    <section className="py-20 md:py-24 bg-primary text-white relative overflow-hidden">
+    <section
+      className="py-12 md:py-16 relative overflow-hidden"
+      style={{ background: "linear-gradient(135deg, #0a1628 0%, #0d2240 55%, #0f2d50 100%)" }}
+    >
+      {/* Subtle grid — same as hero section */}
       <div
         className="absolute inset-0 opacity-[0.05]"
         style={{
@@ -711,64 +736,186 @@ function WhatWeOffer() {
           backgroundSize: "56px 56px",
         }}
       />
-      <div className="container-x relative">
-        <div className="max-w-2xl">
-          <div className="text-xs font-semibold tracking-[0.2em] uppercase text-gold">
-            Core Services
+      {/* Ambient glows */}
+      <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-secondary/25 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+
+      <div className="container-x relative grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+        {/* ── LEFT: copy ── */}
+        <div>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-gold/35 bg-gold/10 mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
+              Secure Credential Verification
+            </span>
           </div>
 
-          <h2 className="mt-3 text-3xl md:text-4xl font-semibold leading-tight tracking-tight">
-            Tailored Accreditation Pathways
+          {/* Heading */}
+          <h2 className="text-4xl md:text-[2.8rem] font-semibold leading-[1.06] tracking-tight text-white">
+            Instant,{" "}
+            <span
+              className="font-bold"
+              style={{ color: "#D4AF37" }}
+            >
+              Cryptographic
+            </span>
+            <br />
+            Verification
           </h2>
 
-          <p className="mt-4 text-white/75">
-            Whether you are an organization seeking certification, a professional advancing your
-            career, or a training provider standardizing your curriculum, IUCB provides a globally
-            recognized accreditation framework.
+          <p className="mt-5 text-[15px] text-white/65 leading-relaxed max-w-[440px]">
+            Trust requires transparency. The open verification console allows anyone — regulators,
+            employers, or partners — to instantly validate the authenticity and current status of
+            any IUCB issued credential.
           </p>
+
+          {/* Trust feature pills */}
+          <div className="mt-8 flex flex-col gap-3">
+            {[
+              { icon: ShieldCheck, label: "Tamper-Proof Credentials" },
+              { icon: QrCode,      label: "QR Code Verification" },
+              { icon: CheckCircle2, label: "Real-Time Validation" },
+            ].map((b) => (
+              <div key={b.label} className="flex items-center gap-2.5 text-[13px] text-white/70">
+                <b.icon className="h-4 w-4 text-gold flex-shrink-0" />
+                {b.label}
+              </div>
+            ))}
+          </div>
+
+          <Link
+            to="/verify"
+            className="mt-8 inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gold text-gold-foreground text-sm font-bold hover:brightness-110 hover:-translate-y-px transition-all duration-200 shadow-[0_4px_16px_-2px_rgba(212,175,55,0.45)]"
+          >
+            Verify a Credential <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
 
-        <div className="mt-12 grid lg:grid-cols-3 gap-5">
-          {[
-            {
-              icon: Building2,
-              title: "Certification Bodies",
-              desc: "Achieve formal recognition of competence to audit and certify organizations against international standards.",
-              to: "/services",
-            },
-            {
-              icon: BadgeCheck,
-              title: "Individual Auditors",
-              desc: "Earn globally portable credentials that validate your expertise across technical and management systems.",
-              to: "/services",
-            },
-            {
-              icon: GraduationCap,
-              title: "Training Providers",
-              desc: "Accredit your courses and examination frameworks to ensure they meet rigorous international compliance standards.",
-              to: "/services",
-            },
-          ].map((c) => (
-            <Link
-              key={c.title}
-              to={c.to as never}
-              className="group rounded-2xl bg-white/[0.06] border border-white/15 p-7 hover:bg-white/[0.1] hover:-translate-y-1 transition-all"
-            >
-              <div className="h-12 w-12 rounded-lg bg-gold/15 border border-gold/30 text-gold grid place-items-center">
-                <c.icon className="h-6 w-6" />
+        {/* ── RIGHT: console widget ── */}
+        <div className="relative">
+          <div className="absolute -inset-3 rounded-3xl bg-white/5 blur-xl pointer-events-none" />
+
+          <div
+            className="relative rounded-2xl border border-white/12 overflow-hidden shadow-[0_28px_64px_-12px_rgba(0,0,0,0.65)]"
+            style={{ background: "linear-gradient(160deg, #101f38 0%, #091524 100%)" }}
+          >
+            {/* Console header bar */}
+            <div className="flex items-center justify-between px-5 py-3 border-b border-white/8 bg-white/[0.03]">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-gold animate-pulse" />
+                <span className="text-[10px] font-bold uppercase tracking-widest text-white/55">
+                  Online
+                </span>
+              </div>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-white/35">
+                Secure Layer
+              </span>
+            </div>
+
+            <div className="p-5">
+              {/* Title */}
+              <div className="mb-4">
+                <div className="text-[16px] font-semibold text-white">Verification Console</div>
+                <div className="text-[12px] text-white/45 mt-0.5">
+                  Verify any IUCB issued credential directly.
+                </div>
               </div>
 
-              <h3 className="mt-5 text-xl font-semibold">{c.title}</h3>
+              {/* Input */}
+              <form onSubmit={onVerify}>
+                <div className="text-[10px] font-bold uppercase tracking-wider text-white/45 mb-1.5">
+                  Credential ID
+                </div>
+                <input
+                  value={certId}
+                  onChange={(e) => setCertId(e.target.value)}
+                  placeholder="IUCB-ACB-0421 · ISO-27001-9842"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/8 border border-white/15 text-white text-[13px] font-mono placeholder:text-white/30 focus:outline-none focus:border-gold/50 focus:bg-white/12 transition-all mb-2.5"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-2.5 rounded-xl bg-secondary text-white text-[13px] font-semibold hover:bg-secondary/80 transition-colors flex items-center justify-center gap-2"
+                >
+                  <ShieldCheck className="h-4 w-4" />
+                  Verify Authenticity
+                </button>
 
-              <p className="mt-2 text-sm text-white/70 leading-relaxed">{c.desc}</p>
+                <div className="mt-2 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    className="py-2 rounded-lg border border-white/12 bg-white/4 text-white/55 text-[11px] font-semibold hover:bg-white/8 transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <Upload className="h-3.5 w-3.5" /> Upload PDF
+                  </button>
+                  <button
+                    type="button"
+                    className="py-2 rounded-lg border border-white/12 bg-white/4 text-white/55 text-[11px] font-semibold hover:bg-white/8 transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <QrCode className="h-3.5 w-3.5" /> Use Camera
+                  </button>
+                </div>
+              </form>
 
-              <div className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-gold">
-                Explore
-                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+              {/* Result panel — always shows a demo state until user searches */}
+              <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className={`h-5 w-5 rounded-full border grid place-items-center ${displayResult.ok ? "bg-green-400/15 border-green-400/35" : "bg-red-400/15 border-red-400/35"}`}>
+                    {displayResult.ok
+                      ? <CheckCircle2 className="h-3 w-3 text-green-400" />
+                      : <ShieldCheck className="h-3 w-3 text-red-400" />
+                    }
+                  </div>
+                  <span className="text-[10px] text-white/45 uppercase tracking-wider font-semibold">
+                    Credential Status
+                  </span>
+                </div>
+
+                {displayResult.ok ? (
+                  <>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[20px] font-bold text-white">Verified</span>
+                      <span className="text-[10px] font-semibold text-green-400 bg-green-400/12 border border-green-400/22 px-2 py-0.5 rounded-full">
+                        Active
+                      </span>
+                    </div>
+                    <div className="space-y-1.5 text-[12px]">
+                      <div className="flex justify-between">
+                        <span className="text-white/40">Issuer</span>
+                        <span className="text-white/80 font-medium">IUCB</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-white/40">Issue Date</span>
+                        <span className="text-white/80 font-medium">{displayResult.issued}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-white/40">Status</span>
+                        <span className="text-green-400 font-semibold">{displayResult.status}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-white/40">Verification</span>
+                        <span className="text-white/80 font-medium">Cryptographically Signed</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-1">
+                    <div className="text-[13px] text-red-400 font-semibold">Not Found</div>
+                    <div className="text-[11px] text-white/35 mt-1">Try: IUCB-ACB-0421</div>
+                  </div>
+                )}
               </div>
-            </Link>
-          ))}
+
+              {/* Footer note */}
+              <div className="mt-3 flex items-start gap-2 text-[11px] text-white/30">
+                <Lock className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
+                Powered by cryptographic signatures and an immutable registry on ledger.
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
   );
@@ -777,7 +924,7 @@ function WhatWeOffer() {
 
 function TrustPillars() {
   return (
-    <section className="py-20 md:py-24 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="container-x">
         <div className="max-w-2xl">
           <div className="eyebrow">Trust Framework</div>
@@ -793,7 +940,7 @@ function TrustPillars() {
           </p>
         </div>
 
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {trust.map((t) => (
             <div
               key={t.title}
@@ -818,7 +965,7 @@ function TrustPillars() {
 
 function IndustriesRow() {
   return (
-    <section className="py-20 md:py-24 bg-soft-gray">
+    <section className="py-12 md:py-16 bg-soft-gray">
       <div className="container-x">
         <div className="max-w-2xl">
           <div className="eyebrow">Global Recognition</div>
@@ -834,7 +981,7 @@ function IndustriesRow() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {industries.map((i) => (
             <div
               key={i.label}

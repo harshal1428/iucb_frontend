@@ -74,18 +74,22 @@ const bodies = [
   {
     title: "Board of Governors",
     desc: "Strategic oversight, governance, and final accreditation authority.",
+    badge: "Oversight",
   },
   {
     title: "Accreditation Committee",
     desc: "Independent decision-making on accreditation outcomes.",
+    badge: "Decision",
   },
   {
     title: "Technical Advisory Panel",
     desc: "Subject-matter expertise across ISO, cybersecurity, and privacy schemes.",
+    badge: "Advisory",
   },
   {
     title: "Impartiality Committee",
     desc: "Safeguards independence and identifies systemic risks.",
+    badge: "Assurance",
   },
 ];
 
@@ -96,70 +100,88 @@ function Governance() {
         eyebrow="Trust & Governance"
         title={
           <>
-            The framework behind every <span className="text-gold">IUCB decision</span>
+            The framework behind every{" "}
+            <span className="text-gold">IUCB decision</span>
           </>
         }
         description="Independent oversight, transparent policies, and rigorous governance bodies ensure every accreditation we issue is impartial, traceable, and globally credible."
       />
 
-      <section className="py-20 md:py-24 bg-white">
+      {/* Governance Bodies */}
+      <section className="py-14 md:py-20 bg-white">
         <div className="container-x">
-          <div className="max-w-2xl">
+          <div className="max-w-xl mb-10">
             <div className="eyebrow">Governance Bodies</div>
-            <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy">
+            <h2 className="mt-3 text-2xl md:text-3xl font-semibold text-navy tracking-tight">
               Independent oversight at every level
             </h2>
+            <p className="mt-3 text-[14px] text-muted-foreground">
+              Four distinct bodies ensure impartiality, technical rigor, and transparent
+              decision-making throughout the accreditation process.
+            </p>
           </div>
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            {bodies.map((b) => (
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {bodies.map((b, i) => (
               <div
                 key={b.title}
-                className="rounded-xl border border-border bg-card p-6 hover:border-secondary hover:shadow-md transition"
+                className="group rounded-2xl border border-border bg-white p-6 hover:border-primary/25 hover:shadow-[0_8px_24px_-6px_rgba(0,75,122,0.12)] hover:-translate-y-0.5 transition-all duration-250"
               >
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-lg bg-light-blue text-primary grid place-items-center flex-shrink-0">
-                    <Users className="h-6 w-6" />
+                <div className="flex items-start gap-4">
+                  <div className="h-11 w-11 rounded-xl bg-light-blue text-primary grid place-items-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+                    <Users className="h-5 w-5" />
                   </div>
-                  <h3 className="text-lg font-semibold text-navy">{b.title}</h3>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="text-[15px] font-semibold text-navy">{b.title}</h3>
+                      <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">
+                        {b.badge}
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[13px] text-muted-foreground leading-relaxed">
+                      {b.desc}
+                    </p>
+                  </div>
                 </div>
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-24 bg-soft-gray">
+      {/* Policies */}
+      <section className="py-14 md:py-20 bg-soft-gray">
         <div className="container-x">
-          <div className="max-w-2xl">
+          <div className="max-w-xl mb-10">
             <div className="eyebrow">Policies & Documentation</div>
-            <h2 className="mt-3 text-3xl md:text-4xl font-semibold text-navy">
+            <h2 className="mt-3 text-2xl md:text-3xl font-semibold text-navy tracking-tight">
               Published policies, public commitments
             </h2>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-3 text-[14px] text-muted-foreground">
               Every IUCB policy is publicly documented, version-controlled, and reviewed annually.
             </p>
           </div>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {policies.map((p) => (
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {policies.map((p, i) => (
               <div
                 key={p.title}
-                className="group rounded-xl border border-border bg-white p-6 hover:border-secondary hover:shadow-lg transition"
+                className="group rounded-2xl border border-border bg-white p-6 hover:border-secondary/30 hover:shadow-[0_8px_24px_-6px_rgba(0,75,122,0.12)] hover:-translate-y-1 transition-all duration-250"
               >
-                <div className="h-11 w-11 rounded-md bg-light-blue text-primary grid place-items-center">
-                  <p.icon className="h-5 w-5" />
+                <div className="h-11 w-11 rounded-xl bg-light-blue text-primary grid place-items-center mb-4 group-hover:bg-primary group-hover:text-white transition-colors duration-200">
+                  <p.icon className="h-4.5 w-4.5" />
                 </div>
-                <h3 className="mt-5 font-semibold text-navy">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                <h3 className="font-semibold text-navy text-[15px]">{p.title}</h3>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{p.desc}</p>
                 <div className="mt-5 pt-4 border-t border-border flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-muted-foreground">
+                  <span className="text-[10px] font-mono text-muted-foreground">
                     {p.version} · {p.date}
                   </span>
                   <Link
                     to="/documentation"
-                    className="text-xs font-semibold text-secondary group-hover:text-primary inline-flex items-center gap-1"
+                    className="text-[11px] font-semibold text-secondary group-hover:text-primary inline-flex items-center gap-1 transition-colors"
                   >
-                    Read PDF <ArrowRight className="h-3 w-3" />
+                    Read PDF <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </div>
               </div>

@@ -44,7 +44,7 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.625rem;
 
   /* Brand palette (mapped to oklch) */
   --background: oklch(1 0 0); /* #FFFFFF */
@@ -73,6 +73,13 @@
   --border: oklch(0.92 0.01 240);
   --input: oklch(0.92 0.01 240);
   --ring: var(--secondary);
+
+  /* Design system tokens */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 10px 25px -5px rgb(0 75 122 / 0.12), 0 4px 10px -3px rgb(0 75 122 / 0.08);
+  --shadow-elevated: 0 20px 40px -12px rgb(0 75 122 / 0.18), 0 4px 12px -2px rgb(0 0 0 / 0.06);
+  --transition-smooth: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .dark {
@@ -103,6 +110,7 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--color-background);
@@ -127,7 +135,15 @@
   p {
     color: #475569;
   }
+  /* Focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
+
+/* ─── Utility classes ─────────────────────────────────────────── */
 
 @utility font-body {
   font-family: var(--font-body);
@@ -148,17 +164,132 @@
   color: #004b7a;
 }
 
+/* Unified container — single max-width system across every page */
 @utility container-x {
   width: 100%;
   margin-inline: auto;
-  max-width: 1200px;
+  max-width: 1380px;
   padding-inline: 1.5rem;
 }
 
 @utility eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-secondary);
+}
+
+/* Premium card base */
+@utility card-base {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: calc(var(--radius) * 1.5);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
+}
+
+@utility card-hover {
+  &:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: oklch(0.5 0.13 260 / 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+/* Scroll-reveal animation */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: reveal-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger delays for grid items */
+@utility stagger-1 { animation-delay: 0ms; }
+@utility stagger-2 { animation-delay: 80ms; }
+@utility stagger-3 { animation-delay: 160ms; }
+@utility stagger-4 { animation-delay: 240ms; }
+@utility stagger-5 { animation-delay: 320ms; }
+@utility stagger-6 { animation-delay: 400ms; }
+
+/* Progress bar shimmer */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+
+@utility shimmer-bar {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Section divider gradient */
+@utility section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-border), transparent);
+}
+
+/* Icon container — standardized across the design system */
+@utility icon-container {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: calc(var(--radius) * 1.25);
+  background-color: var(--color-light-blue);
+  color: var(--color-primary);
+}
+
+/* Button base improvements */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-gold);
+  color: var(--color-gold-foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: filter var(--transition-smooth), transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  box-shadow: 0 4px 14px -2px rgb(212 175 55 / 0.35);
+  &:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -4px rgb(212 175 55 / 0.45);
+  }
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-navy);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color var(--transition-smooth), background-color var(--transition-smooth), transform var(--transition-smooth);
+  &:hover {
+    border-color: var(--color-secondary);
+    background-color: oklch(0.5 0.13 260 / 0.04);
+    transform: translateY(-1px);
+  }
 }

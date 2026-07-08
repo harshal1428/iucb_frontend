@@ -74,7 +74,7 @@ function LoginComponent() {
         "response" in error &&
         typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message ===
           "string"
-          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message
+          ? (error as { response?: { data?: { message?: string } } }).response!.data!.message!
           : "Invalid credentials. Please try again.";
       setErrorMessage(msg);
     } finally {
@@ -87,10 +87,12 @@ function LoginComponent() {
       <Card className="w-full max-w-md border-slate-200 shadow-xl">
         <CardHeader className="space-y-2 text-center">
           <div className="flex justify-center">
-            {/* Navy & Gold Branding Logo area */}
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#0F2942]">
-              <Lock className="h-6 w-6 text-[#D4AF37]" />
-            </div>
+            {/* Official IUCB logo */}
+            <img
+              src="/FINAL_LOGO_DESIGN.jpeg"
+              alt="IUCB Logo"
+              className="h-16 w-16 rounded-full object-contain border-2 border-[#D4AF37] shadow-md"
+            />
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight text-[#0F2942]">
             IUCB Portal Login

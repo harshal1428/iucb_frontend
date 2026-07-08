@@ -77,6 +77,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: appConfig.title },
       { name: "description", content: appConfig.description },
       { name: "author", content: appConfig.author },
+      // Theme color for browser chrome (Chrome Android, Safari on iOS 15+)
+      { name: "theme-color", content: "#004B7A" },
+      // MS Edge / Windows tile color
+      { name: "msapplication-TileColor", content: "#004B7A" },
       { property: "og:title", content: seoConfig.og.title },
       { property: "og:description", content: seoConfig.og.description },
       { property: "og:type", content: seoConfig.og.type },
@@ -92,6 +96,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap",
       },
+      // ─── Favicon ────────────────────────────────────────────────────
+      // Primary: IUCB official logo image (JPEG) — used by most modern browsers
+      { rel: "icon", href: "/FINAL_LOGO_DESIGN.jpeg", type: "image/jpeg" },
+      // SVG favicon — vector fallback for browsers that prefer SVG (Firefox, Chrome 80+)
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      // Fallback .ico for legacy browsers and OS-level shortcuts
+      { rel: "icon", href: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      // Apple home-screen / touch icon (iPhone, iPad) — 180×180
+      { rel: "apple-touch-icon", href: "/FINAL_LOGO_DESIGN.jpeg" },
+      // Web app manifest (PWA metadata, theme color, short name, icons)
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
   shellComponent: RootShell,

@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, X, ChevronDown, Download } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { useState, useEffect } from "react";
 
 type NavItem = { to: string; label: string; hasMenu?: "programs" | "resources" };
 const nav: NavItem[] = [
@@ -62,15 +62,25 @@ const resourcesMega: MegaCol[] = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50">
-      {/* Zone B — Branding row */}
+    <header
+      className={`sticky top-0 z-50 transition-shadow duration-300 ${
+        scrolled ? "shadow-[0_4px_24px_-4px_rgba(0,75,122,0.18)]" : ""
+      }`}
+    >
+      {/* Branding row */}
       <div className="bg-white border-b border-border">
-        <div className="container-x flex h-[68px] items-center justify-between">
-          <Link to="/" className="flex items-center gap-3">
-            <div className="relative h-14 w-14 flex-shrink-0">
-              {/* Replace src below with your actual logo path */}
+        <div className="container-x flex h-[64px] items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative h-12 w-12 flex-shrink-0 transition-transform duration-200 group-hover:scale-[1.04]">
               <img
                 src="/FINAL_LOGO_DESIGN.jpeg"
                 alt="IUCB Logo"
@@ -79,8 +89,8 @@ export function SiteHeader() {
             </div>
             <div className="leading-tight">
               <div className="text-[15px] font-bold tracking-tight text-primary">IUCB</div>
-              <div className="text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
-                INTERNATIONAL UNION FOR CERTIFICATION AND BENCHMARKING
+              <div className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                International Union for Certification and Benchmarking
               </div>
             </div>
           </Link>
@@ -88,14 +98,14 @@ export function SiteHeader() {
           <div className="hidden md:flex items-center gap-3">
             <Link
               to="/documentation"
-              className="h-9 px-5 inline-flex items-center text-xs font-semibold rounded-full border border-gold/40 text-primary hover:border-gold hover:bg-gold/5 transition"
+              className="h-8 px-4 inline-flex items-center text-[11px] font-semibold rounded-full border border-gold/40 text-primary hover:border-gold hover:bg-gold/5 transition-all duration-200"
             >
               Advisory
             </Link>
           </div>
 
           <button
-            className="lg:hidden p-2 text-primary"
+            className="lg:hidden p-2 text-primary rounded-md hover:bg-soft-gray transition-colors"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -104,10 +114,10 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* Zone C — Global navigation bar */}
-      <div className="bg-primary text-white border-t border-white/10 relative">
+      {/* Navigation bar */}
+      <div className="bg-primary text-white relative">
         <div className="container-x">
-          <nav className="hidden lg:flex items-center gap-0">
+          <nav className="hidden lg:flex items-center">
             {nav.map((item) => (
               <div
                 key={item.label}
@@ -117,16 +127,24 @@ export function SiteHeader() {
               >
                 <Link
                   to={item.to as never}
-                  className="group relative flex items-center gap-1 px-5 py-3.5 text-[15px] font-semibold text-white/90 hover:text-white transition-colors"
+                  className="group relative flex items-center gap-1 px-4 py-3 text-[14px] font-semibold text-white/80 hover:text-white transition-colors duration-200"
                   activeProps={{
                     className:
-                      "flex items-center gap-1 px-5 py-3.5 text-[15px] font-semibold text-white",
+                      "flex items-center gap-1 px-4 py-3 text-[14px] font-semibold text-white",
                   }}
                 >
                   {item.label}
-                  {item.hasMenu && <ChevronDown className="h-3 w-3 opacity-80" />}
-                  <span className="pointer-events-none absolute left-4 right-4 bottom-0 h-[3px] bg-gold scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+                  {item.hasMenu && (
+                    <ChevronDown
+                      className={`h-3 w-3 opacity-70 transition-transform duration-200 ${
+                        menu === item.label ? "rotate-180" : ""
+                      }`}
+                    />
+                  )}
+                  {/* Active / hover underline */}
+                  <span className="pointer-events-none absolute left-3 right-3 bottom-0 h-[2px] bg-gold rounded-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-250" />
                 </Link>
+
                 {item.hasMenu && menu === item.label && (
                   <div
                     className="fixed left-0 right-0 z-50"
@@ -135,22 +153,24 @@ export function SiteHeader() {
                     onMouseLeave={() => setMenu(null)}
                   >
                     <div className="absolute left-0 top-full w-screen">
-                      <div className="bg-white border-b-4 border-gold shadow-2xl">
+                      <div className="bg-white border-b-4 border-gold shadow-[0_20px_48px_-8px_rgba(0,75,122,0.18)]">
                         <div
-                          className={`container-x py-10 grid gap-10 ${item.hasMenu === "programs" ? "grid-cols-1" : "grid-cols-4"}`}
+                          className={`container-x py-8 grid gap-8 ${
+                            item.hasMenu === "programs" ? "grid-cols-1 max-w-sm" : "grid-cols-4"
+                          }`}
                         >
                           {(item.hasMenu === "programs" ? programsMega : resourcesMega).map(
                             (col) => (
                               <div key={col.title}>
-                                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-primary mb-4 pb-2 border-b border-light-blue">
+                                <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-3 pb-2 border-b border-light-blue">
                                   {col.title}
                                 </div>
-                                <ul className="space-y-2.5">
+                                <ul className="space-y-2">
                                   {col.links.map((l) => (
                                     <li key={l.label}>
                                       <Link
                                         to={l.to as never}
-                                        className="group inline-flex items-center text-[14px] font-medium text-navy-deep hover:text-secondary transition-all hover:translate-x-[3px]"
+                                        className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-navy hover:text-secondary transition-all duration-150 hover:translate-x-[3px]"
                                       >
                                         {l.label}
                                       </Link>
@@ -167,45 +187,53 @@ export function SiteHeader() {
                 )}
               </div>
             ))}
+
             <div className="ml-auto flex items-center gap-2 py-2">
               <Link
+                to="/verify"
+                className="h-8 px-4 inline-flex items-center text-[12px] font-semibold text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-full transition-all duration-200"
+              >
+                Verify
+              </Link>
+              <Link
                 to="/services"
-                className="inline-flex items-center h-9 px-5 rounded-full bg-gold text-gold-foreground text-[13px] font-bold hover:brightness-105 transition shadow-sm"
+                className="inline-flex items-center h-8 px-5 rounded-full bg-gold text-gold-foreground text-[12px] font-bold hover:brightness-110 hover:-translate-y-px transition-all duration-200 shadow-[0_2px_8px_-2px_rgba(212,175,55,0.5)]"
               >
                 Get Accredited
               </Link>
             </div>
           </nav>
         </div>
-        {/* Subtle gold separator between header and page content */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+        {/* Gold accent line */}
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-gold/35 to-transparent" />
       </div>
 
+      {/* Mobile drawer */}
       {open && (
-        <div className="lg:hidden border-t border-white/10 bg-primary text-white">
-          <div className="container-x py-4 flex flex-col gap-1">
+        <div className="lg:hidden border-t border-white/10 bg-primary text-white shadow-xl">
+          <div className="container-x py-4 flex flex-col gap-0.5">
             {nav.map((n) => (
               <Link
                 key={n.label}
                 to={n.to as never}
                 onClick={() => setOpen(false)}
-                className="py-2 text-sm font-medium text-white/90 hover:text-gold"
+                className="py-2.5 px-2 text-sm font-medium text-white/85 hover:text-gold hover:bg-white/5 rounded-md transition-colors"
               >
                 {n.label}
               </Link>
             ))}
-            <div className="flex gap-2 mt-3">
+            <div className="flex gap-2 mt-4 pt-4 border-t border-white/10">
               <Link
                 to="/verify"
                 onClick={() => setOpen(false)}
-                className="flex-1 text-center px-4 py-2 text-sm rounded-md border border-white/30"
+                className="flex-1 text-center px-4 py-2.5 text-sm font-semibold rounded-xl border border-white/25 hover:bg-white/10 transition-colors"
               >
                 Verify
               </Link>
               <Link
                 to="/services"
                 onClick={() => setOpen(false)}
-                className="flex-1 text-center px-4 py-2 text-sm font-semibold rounded-md bg-gold text-gold-foreground"
+                className="flex-1 text-center px-4 py-2.5 text-sm font-bold rounded-xl bg-gold text-gold-foreground hover:brightness-110 transition-all"
               >
                 Apply
               </Link>

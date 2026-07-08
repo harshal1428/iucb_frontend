@@ -1,0 +1,29 @@
+{
+  "name": "IUCB — The Global Authority for Accreditation & Certification",
+  "short_name": "IUCB",
+  "description": "IUCB accredits Certification Bodies, Auditors, and Training Providers against ISO, Cybersecurity & Privacy standards across 80+ countries.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#004B7A",
+  "icons": [
+    {
+      "src": "/FINAL_LOGO_DESIGN.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/FINAL_LOGO_DESIGN.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
